@@ -81,7 +81,7 @@ seacrhField.addEventListener('input',(e)=>{
 
 forma.addEventListener('submit',(e)=>{
     e.preventDefault();
-    if(forma.children.length<2&&field.value){
+    if(forma.children.length<4&&field.value){
         forma.append(list,foot,need,complete)
         createElement(list,'li','label',field.value);
         scoreTodo(true);
@@ -122,10 +122,8 @@ function createElement(parent,el,child,value){
             scoreTodo(false)
              parent.removeChild(label)
              if(forma.children[1].children.length==0){
-                 forma.removeChild(need)
-                 forma.removeChild(complete)
-                 forma.removeChild(list);
-                 forma.removeChild(foot);
+                forma.removeChild(list);
+                forma.removeChild(foot);
              }
          })
         let complBtn=crtBtn('cmplBtn');
