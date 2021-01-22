@@ -1,3 +1,4 @@
+////variables
 let score=0;
 const forma=document.querySelector('form');
 const field =document.querySelector('.toDoField');
@@ -6,46 +7,60 @@ list.classList.add('toDoListItems');
 let foot=document.createElement('footer')
 foot.classList.add('todoScore');
 let seacrhField=document.querySelector('.search');
-let complete=document.createElement('input');
-complete.setAttribute('type', 'button');
-let need=document.createElement('input');
-need.setAttribute('type', 'button');
+let complete=crtBtn('todobuttons',"Completed")
+let need=crtBtn('todobuttons',"Needed")
 let completeList=document.createElement('ul');
-completeList.classList.add('toDoListItems')
-need.classList.add('todobuttons')
-complete.classList.add('todobuttons')
-need.setAttribute("value","Needed");
-complete.setAttribute("value","Completed");
+completeList.classList.add('toDoListItems');
 
 
-
+///Events
 complete.addEventListener('click',()=>{
-    if(completeList.childNodes.length==0){
-        list.childNodes.forEach((el)=>{
-            if(el.className.includes("inher")){
-                let listItem=el.cloneNode(true);
-                completeList.appendChild(listItem)
-            }
-            
-                
-        })
-    }
-    
-    if(list.parentElement==forma){
-        forma.removeChild(list)
-        forma.append(completeList,foot,need,complete)
-    }
-    
+    field.readOnly=true;
+    list.childNodes.forEach(el=>{
+        if(el.className.includes('inher')){
+            el.classList.remove('none')
+        }else{el.classList.add('none')}
+    })
 })
 need.addEventListener('click',()=>{
-    if(completeList.parentElement==forma){
-        forma.removeChild(completeList)
-        completeList=document.createElement('ul')
-        completeList.classList.add('toDoListItems')
-        forma.append(list,foot,need,complete);
-        
-    }
+    field.readOnly=false;
+    list.childNodes.forEach(el=>{
+        if(!el.className.includes('inher')){
+            el.classList.remove('none')
+        }else{el.classList.add('none')}
+    })
 })
+
+// complete.addEventListener('click',()=>{
+//     if(completeList.childNodes.length==0){
+//         list.childNodes.forEach((el)=>{
+//             if(el.className.includes("inher")){
+//                 let listItem=el.cloneNode(true);
+//                 completeList.appendChild(listItem)
+//             }
+            
+                
+//         })
+//     }
+    
+//     if(list.parentElement==forma){
+//         forma.removeChild(list)
+//         forma.append(completeList,foot,need,complete)
+//     }
+    
+// })
+
+
+
+// need.addEventListener('click',()=>{
+//     if(completeList.parentElement==forma){
+//         forma.removeChild(completeList)
+//         completeList=document.createElement('ul')
+//         completeList.classList.add('toDoListItems')
+//         forma.append(list,foot,need,complete);
+        
+//     }
+// })
 
 
 
@@ -61,49 +76,8 @@ seacrhField.addEventListener('input',(e)=>{
 })
 
 
-function scoreTodo(bool){
-    if(bool){
-        score++
-    }else{score--}
-    foot.textContent=`You need done ${score} item`;
-}
-function createElement(parent,el,child,value){
-    if(value){
-        let btn=document.createElement('input')
-        btn.setAttribute('type',"button");
-        btn.classList.add('removeTodo')
-        btn.addEventListener('click',()=>{
-            scoreTodo(false)
-             parent.removeChild(label)
-             if(forma.children[1].children.length==0){
-                 forma.removeChild(need)
-                 forma.removeChild(complete)
-                 forma.removeChild(list);
-                 forma.removeChild(foot);
-             }
-         })
-        let complBtn=document.createElement('input')
-        complBtn.classList.add('cmplBtn')
-        complBtn.setAttribute('type',"button");
-        complBtn.addEventListener('click',()=>{
-            label.classList.toggle('inher')
-        })
 
 
-
-        let todo=document.createElement(el);
-        let label=document.createElement(child)
-        todo.classList.add('todo')
-        label.classList.add('toDoItem');
-        label.prepend(complBtn)
-        label.prepend(todo);
-        label.append(btn)
-        todo.textContent=value;
-        label.appendChild(todo)
-        parent.appendChild(label);
-        console.log(btn)
-    }
-}
 
 forma.addEventListener('submit',(e)=>{
     e.preventDefault();
@@ -119,5 +93,53 @@ forma.addEventListener('submit',(e)=>{
     }
 })
 
+////////////////////function
 
-console.log(foot.childNodes)
+function crtBtn(name=false,value=false){
+    
+        let btn=document.createElement('input');
+        btn.setAttribute('type', 'button');
+        if(name){
+            btn.classList.add(name)
+        }
+        if(value){
+            btn.setAttribute("value",value);
+        }
+        return btn
+}
+
+function scoreTodo(bool){
+    if(bool){
+        score++
+    }else{score--}
+    foot.textContent=`You need done ${score} item`;
+}
+
+function createElement(parent,el,child,value){
+    if(value){
+        let btn=crtBtn("removeTodo")
+        btn.addEventListener('click',()=>{
+            scoreTodo(false)
+             parent.removeChild(label)
+             if(forma.children[1].children.length==0){
+                 forma.removeChild(need)
+                 forma.removeChild(complete)
+                 forma.removeChild(list);
+                 forma.removeChild(foot);
+             }
+         })
+        let complBtn=crtBtn('cmplBtn');
+        complBtn.addEventListener('click',()=>{
+            label.classList.toggle('inher')
+            label.classList.toggle('none')
+        })
+        let todo=document.createElement(el);
+        let label=document.createElement(child)
+        todo.classList.add('todo')
+        todo.textContent=value;
+        label.classList.add('toDoItem');
+        label.append(complBtn,todo,btn)
+        parent.appendChild(label);
+        console.log(btn)
+    }
+}

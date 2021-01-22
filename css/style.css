@@ -15,6 +15,12 @@ body {
   color: #4d4d4d;
 }
 
+.mainToDoForm {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  border: 1px #0000001a solid;
+}
+
 .toDoHead {
   width: 100%;
   font-size: 100px;
@@ -78,6 +84,10 @@ body {
   padding: 10px;
 }
 
+.none {
+  display: none;
+}
+
 .hidd {
   display: none;
 }
@@ -104,11 +114,11 @@ body {
 
 .todoScore {
   display: inline;
-  margin-right: 240px;
+  margin-right: 200px;
 }
 
 .cmplBtn {
-  padding: 5px;
+  padding: 10px;
   width: 5%;
   border-radius: 50px;
   border-style: none;
