@@ -31,41 +31,6 @@ need.addEventListener('click',()=>{
     })
 })
 
-// complete.addEventListener('click',()=>{
-//     if(completeList.childNodes.length==0){
-//         list.childNodes.forEach((el)=>{
-//             if(el.className.includes("inher")){
-//                 let listItem=el.cloneNode(true);
-//                 completeList.appendChild(listItem)
-//             }
-            
-                
-//         })
-//     }
-    
-//     if(list.parentElement==forma){
-//         forma.removeChild(list)
-//         forma.append(completeList,foot,need,complete)
-//     }
-    
-// })
-
-
-
-// need.addEventListener('click',()=>{
-//     if(completeList.parentElement==forma){
-//         forma.removeChild(completeList)
-//         completeList=document.createElement('ul')
-//         completeList.classList.add('toDoListItems')
-//         forma.append(list,foot,need,complete);
-        
-//     }
-// })
-
-
-
-
-
 seacrhField.addEventListener('input',(e)=>{
 
     list.childNodes.forEach(el=>{
