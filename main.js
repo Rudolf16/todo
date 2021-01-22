@@ -1,9 +1,54 @@
+let score=0;
 const forma=document.querySelector('form');
 const field =document.querySelector('.toDoField');
 let list=document.createElement('ul');
 list.classList.add('toDoListItems');
 let foot=document.createElement('footer')
 let seacrhField=document.querySelector('.search');
+let complete=document.createElement('input');
+complete.setAttribute('type', 'button');
+let need=document.createElement('input');
+need.setAttribute('type', 'button');
+let completeList=document.createElement('ul');
+completeList.classList.add('toDoListItems')
+need.classList.add('todobuttons')
+complete.classList.add('todobuttons')
+need.setAttribute("value","Needed");
+complete.setAttribute("value","Completed");
+
+
+
+complete.addEventListener('click',()=>{
+    if(completeList.childNodes.length==0){
+        list.childNodes.forEach((el)=>{
+            if(el.className.includes("inher")){
+                let listItem=el.cloneNode(true);
+                completeList.appendChild(listItem)
+            }
+            
+                
+        })
+    }
+    
+    if(list.parentElement==forma){
+        forma.removeChild(list)
+        forma.append(completeList,foot,need,complete)
+    }
+    
+})
+need.addEventListener('click',()=>{
+    if(completeList.parentElement==forma){
+        forma.removeChild(completeList)
+        completeList=document.createElement('ul')
+        forma.append(list,foot,need,complete);
+        
+    }
+})
+
+
+
+
+
 seacrhField.addEventListener('input',(e)=>{
 
     list.childNodes.forEach(el=>{
@@ -12,7 +57,7 @@ seacrhField.addEventListener('input',(e)=>{
         }else{el.classList.remove('hidd')}
     })
 })
-let score=0;
+
 
 function scoreTodo(bool){
     if(bool){
@@ -29,16 +74,27 @@ function createElement(parent,el,child,value){
             scoreTodo(false)
              parent.removeChild(label)
              if(forma.children[1].children.length==0){
+                 forma.removeChild(need)
+                 forma.removeChild(complete)
                  forma.removeChild(list);
                  forma.removeChild(foot);
              }
          })
+        let complBtn=document.createElement('input')
+        complBtn.setAttribute('type',"button");
+        complBtn.addEventListener('click',()=>{
+            label.classList.toggle('inher')
+        })
+
+
+
         let todo=document.createElement(el);
         let label=document.createElement(child)
         todo.classList.add('todo')
         label.classList.add('toDoItem');
-        label.appendChild(todo);
-        label.appendChild(btn)
+        label.prepend(complBtn)
+        label.prepend(todo);
+        label.append(btn)
         todo.textContent=value;
         label.appendChild(todo)
         parent.appendChild(label);
@@ -49,13 +105,14 @@ function createElement(parent,el,child,value){
 forma.addEventListener('submit',(e)=>{
     e.preventDefault();
     if(forma.children.length<2&&field.value){
-        forma.appendChild(list);
-        forma.appendChild(foot);
+        forma.append(list,foot,need,complete)
+        createElement(list,'li','label',field.value);
+        scoreTodo(true);
+        field.value=""
+    }else if(field.value){
         createElement(list,'li','label',field.value);
         scoreTodo(true)
-    }else{
-        createElement(list,'li','label',field.value);
-        scoreTodo(true)
+        field.value=""
     }
 })
 
