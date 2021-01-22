@@ -4,6 +4,7 @@ const field =document.querySelector('.toDoField');
 let list=document.createElement('ul');
 list.classList.add('toDoListItems');
 let foot=document.createElement('footer')
+foot.classList.add('todoScore');
 let seacrhField=document.querySelector('.search');
 let complete=document.createElement('input');
 complete.setAttribute('type', 'button');
@@ -40,6 +41,7 @@ need.addEventListener('click',()=>{
     if(completeList.parentElement==forma){
         forma.removeChild(completeList)
         completeList=document.createElement('ul')
+        completeList.classList.add('toDoListItems')
         forma.append(list,foot,need,complete);
         
     }
@@ -81,6 +83,7 @@ function createElement(parent,el,child,value){
              }
          })
         let complBtn=document.createElement('input')
+        complBtn.classList.add('cmplBtn')
         complBtn.setAttribute('type',"button");
         complBtn.addEventListener('click',()=>{
             label.classList.toggle('inher')

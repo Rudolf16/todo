@@ -64,6 +64,8 @@ body {
 }
 
 .inher {
+  color: #1fa01f;
+  transition: all 0.8s;
   text-decoration: line-through;
 }
 
@@ -98,6 +100,20 @@ body {
   text-decoration: none;
   border: 1px solid bisque;
   border-radius: 3px;
+}
+
+.todoScore {
+  display: inline;
+  margin-right: 240px;
+}
+
+.cmplBtn {
+  padding: 5px;
+  width: 5%;
+  border-radius: 50px;
+  border-style: none;
+  background: url(../img/complete.png) no-repeat center;
+  background-size: contain;
 }
 
 /*# sourceMappingURL=style.css.map */
